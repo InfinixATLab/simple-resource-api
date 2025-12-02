@@ -126,5 +126,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Definição do paginador padrão
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'api.pagination.ProductPagination',
-    'PAGE_SIZE': 10 # Tamanho da página padrão
+    'PAGE_SIZE': 10, # Tamanho da página padrão
+    'EXCEPTION_HANDLER': 'api.exception_handler.custom_exception_handler',
 }
+
