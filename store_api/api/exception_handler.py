@@ -6,7 +6,6 @@ from .exceptions import DuplicateResourceException
 def custom_exception_handler(exc, context):
    
     response = exception_handler(exc, context)
-    
     if isinstance(exc, DuplicateResourceException):
         custom_response_data = {
             'erro': str(exc.detail),

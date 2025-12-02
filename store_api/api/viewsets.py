@@ -15,6 +15,23 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     pagination_class = ProductPagination
 
+    # --> Criação de categoria.
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        category_name = serializer.validated_data.get('name')
+
+        if category_name:
+            existing_category = Category.objects.filter(
+                name__iexact=category_name
+            ).first()
+            
+            if existing_category:
+                raise DuplicateResourceException(
+                    detail=f"Categoria com nome '{category_name}' já existe."
+                )
+        return super().create(request, *args, **kwargs)
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
