@@ -91,6 +91,6 @@ Não foi implementado deploy ou Docker. O projeto está configurado apenas para 
 
 4. **Banco de dados em produção**: Configurar PostgreSQL para produção, mantendo SQLite apenas para desenvolvimento.
 
-5. **Índices no banco**: Adicionar índices nos campos `name` das tabelas Category e Product para melhorar performance das buscas.
+5. **Índices no banco**: Adicionar índices nos campos `name` das tabelas Category e Product para melhorar performance das buscas..
 
 6. **Autenticação**: Adicionar autenticação (JWT ou Token) se a API for exposta publicamente.
