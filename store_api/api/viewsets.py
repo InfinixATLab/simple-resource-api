@@ -1,9 +1,13 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 from .pagination import ProductPagination
+from .exceptions import DuplicateResourceException
+
+
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -16,6 +20,26 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = ProductPagination
+    
+    def create(self, request, *args, **kwargs):
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        product_name = serializer.validated_data.get('name')
+        
+        
+        if product_name:
+            existing_product = Product.objects.filter(
+                name__iexact=product_name
+            ).first()
+            
+            if existing_product:
+                raise DuplicateResourceException(
+                    detail=f"Produto com nome '{product_name}' já existe."
+                )
+        
+        return super().create(request, *args, **kwargs)
     
     # Busca produtos pelo nome -> products/search_by_name/?name=notebook
     @action(detail=False, methods=['get'], url_path='search')
@@ -30,5 +54,4 @@ class ProductViewSet(viewsets.ModelViewSet):
         
         serializer = self.get_serializer(products, many=True)
         return Response(serializer.data)
-
     
