@@ -1,59 +1,78 @@
-* IMPORTANTE: Não inicie este desafio sem autorização. O desafio só poderá ser iniciado no dia e horário agendado via Google Meet. Entre em contato via email ou whatsapp:
-  - administrativo@infinixassessoria.com.br
-  - (21) 99515-2411
+# Desafio Simple Resource API - Wellington
 
-# SIMPLE RESOURCE API
+## Seção 1: Instruções para rodar
 
-## Sobre
-**Stack**: Python + Django + DRF
-**Escopo**: Uma API para catálogos de produtos.
+Este projeto utiliza Python, Django e Django Rest Framework.
 
-## Requisitos Essenciais (Timebox 4h)
+### Pré-requisitos
+* Python 3.10+ instalado
+* Git instalado
 
-1. Modelos: Em api/models.py, defina:
-    - Category(name: CharField)
-    - Product(name: Charfield, description: TextField, price: DecimalField (2 decimal places), category: ForeignKey(Category, on_delete=models.PROTECT))
-2. Admin: Registre ambos os modelos *Category* e *Product* no api/admin.py para que sejam gerenciáveis via Django Admin.
-3. API (DRF):
-    - Defina *serializers* para *Category* e *Product*.
-    - O serializador de *Product* deve exibir o nome da categoria, não apenas seu ID.
-    - Use **ViewSets** para fornercer funcionalidade CRUD completa para *Category* e *Product*.
-    - Configure urls usando DefaultRouter do DRF para registrar os ViewSets.
-4. Testes: Escreva pelo menos 2 (dois) testes unitários usando APITestCase do DRF:
-    - Um teste para verificar a criação de um Produto.
-    - Um teste para verificar a listagem de Produtos.
+### Instalação
 
-#### Bônus (Desejáveis):
-    - Swagger (Documentação API: Configure e adicione as rotas ao urls.py principal.
-    - AWS S3 (Upload de Arquivos): Adicione um campo ImageField(upload_to='products/') ao modelo Product; Configue django-storages e boto3 e dê instruções sobre como configurar as credenciais da AWS para testar o upload.
-    - Hospedagem: Forneça um Dockerfile e docker-compose.yml que permitam rodar o projeto e seu banco de dados (PostgersSQL) com um único comando. Se preferir, faça deploy no Render.
+1. Clone o repositório e entre na pasta:
+   ```bash
+   git clone <SEU_LINK_DO_GITHUB_AQUI>
+   cd simple-resource-api
 
-# Rubrica de Avaliação
 
-| Dimensão Avaliada                        | Peso  | Pontuação (1-5) | Descrição da Avaliação (O que procurar)                                                                                                                                                                                                 |
-|------------------------------------------|-------|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **1. Funcionalidade (Requisitos Essenciais)** | 40%  | [1-5]           | **5 (Excelente):** Cumpriu 100% dos requisitos essenciais. A aplicação roda de primeira, sem bugs óbvios. Trata estados de loading/error.<br>**3 (Satisfatório):** Cumpriu a maioria (80%+) dos requisitos. Funcionalidade principal funciona, mas com bugs menores.<br>**1 (Inaceitável):** Não roda ou a funcionalidade principal está quebrada. O avaliador não consegue testar a solução. |
-| **2. Qualidade de Código e Estrutura**       | 25%  | [1-5]           | **5 (Excelente):** Código limpo, legível e idiomático. Segue princípios (ex: DRY). Estrutura de pastas lógica e escalável. Separação clara de responsabilidades.<br>**3 (Satisfatório):** Código funciona, mas com repetição ou "code smells". Estrutura de pastas aceitável, mas confusa.<br>**1 (Inaceitável):** "Código espaguete". Variáveis ruins. "Sopa de arquivos" na raiz. |
-| **3. Processo e Comunicação (Git & README)** | 25%  | [1-5]           | **5 (Excelente):** Commits atômicos, frequentes e bem descritos. PR bem escrito. README completo com setup e explicações de design.<br>**3 (Satisfatório):** Usa Git, mas commits grandes (ex: "implementa home e função de agendar tarefas e remove var desnecessária"). README mínimo com instruções básicas.<br>**1 (Inaceitável):** Um único commit ("final"). Nenhum README ou instruções. Demonstra falta de profissionalismo e comunicação. |
-| **4. Bônus e Resolução de Problemas**        | 10%  | [1-5]           | **5 (Excelente):** Implementou requisitos bônus funcionando. README explica como utilizar.<br>**3 (Satisfatório):** Tentou implementar bônus, mas não funcionou. README explica falha e plano.<br>**1 (Inaceitável):** Ignorou bônus ou implementou com falhas e sem explicação no README. |
+2. Crie e ative o ambiente virtual:
+# Windows
+python -m venv venv
+.\venv\Scripts\activate
 
-## Instruções sobre "README-CANDIDATO" (Timebox 30min):
-Preencha este arquivo com informações claras e concisas, separadas pelas seguintes seções:
+ 3. Instale as dependências:
 
-#### Seção 1: Instruções para rodar
-- Quais variáveis de ambiente são necessárias?
-- Como instalar dependências?
-- Como rodar o projeto?
+# Linux/Mac
+python3 -m venv venv
+source venv/bin/activate
+Instale as dependências:
 
-#### Seção 2: Decisões de design
-- Qual foi a maior dificuldade que você encontrou e como superou?
-- O que você não teve tempo de fazer (dentro do timebox) e como você faria se tivesse mais tempo?
 
-#### Seção 3: Link para Deploy (Bônus)
-- Cole aqui o link do projeto hospedado ou instrua como rodar via Docker.
+pip install -r requirements.txt
+Prepare o banco de dados:
 
-#### Seção final: Recomendações
-- Escreva aqui dicas, melhorias e recomendações sobre este desafio.
+4. Prepare o banco de dados:
 
-## Considerações finais:
-Este desafio não foi pensado para encontrar quem o finaliza 100% ou quem o termina mais rápido. Estamos buscando um desenvolvedor sério, que saiba como desenvolver soluções mesmo que para apenas 50% do projeto. Não queremos nenhum dev que dependa 100% de IA ou de terceiros, mas sim aquele que sabe priorizar, desenvolver e pesquisar.
+python manage.py migrate
+python manage.py createsuperuser # (Opcional: para acessar o admin)
+Rode os testes automatizados (para validar a aplicação):
+
+5. Rode os testes automatizados (para validar a aplicação):
+
+python manage.py test
+Inicie o servidor:
+
+6. Inicie o servidor:
+
+python manage.py runserver
+
+
+🔗 Acesso
+API (Swagger/Documentação): https://www.google.com/search?q=http://127.0.0.1:8000/api/docs/
+
+Painel Admin: https://www.google.com/search?q=http://127.0.0.1:8000/admin/
+
+API Root: https://www.google.com/search?q=http://127.0.0.1:8000/api/
+
+
+Decisões Técnicas
+Estrutura: Mantive a estrutura padrão do Django (store_api como config e api como app) para facilitar a leitura por outros desenvolvedores.
+
+Modelagem: Utilizei DecimalField para o preço (precisão financeira) e on_delete=models.PROTECT na Categoria para garantir integridade referencial.
+
+API: Utilizei ViewSets e Routers do DRF para garantir uma implementação RESTful padrão e produtiva.
+
+Dificuldades e Superações
+Como minha stack principal é Java, meu maior desafio foi a adaptação rápida à sintaxe e ao ecossistema do Python dentro do timebox.
+
+Swagger (Superação): Consegui implementar a documentação automática (drf-spectacular) como bônus, facilitando o teste da API.
+
+Deploy (Decisão): Tentei realizar o deploy no Render, mas encontrei dificuldades com a configuração do ambiente em Python num curto espaço de tempo. Optei estrategicamente por priorizar a qualidade do código local e a cobertura de testes (que estão 100% funcionais) em vez de entregar um deploy instável.
+
+O que faria com mais tempo
+Com mais tempo de estudo na linguagem Python, implementaria:
+
+Docker: Para containerizar a aplicação e resolver as questões de ambiente.
+
+Deploy: Finalizaria a configuração do Gunicorn/Postgres no Render.
