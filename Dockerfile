@@ -12,4 +12,4 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . /app/
 
-CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn store_api.wsgi:application --bind 0.0.0.0:8000"]
+CMD python manage.py migrate && python manage.py collectstatic --noinput && python manage.py createsuperuser --noinput || true && gunicorn store_api.wsgi:application --bind 0.0.0.0:8000
