@@ -16,7 +16,7 @@ A maneira mais simples de iniciar a aplicação e o banco de dados é utilizando
 
 1. Clone o repositório e abra a pasta do projeto:
    ```bash
-   git clone https://github.com/dnxbatista/simple-resource-api/tree/Feature/daniel
+   git clone https://github.com/dnxbatista/simple-resource-api.git
    cd simple-resource-api\store_api\
    ```
 
