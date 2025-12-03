@@ -19,9 +19,28 @@ PRODUCT_UPLOAD_SCHEMA = {
     }
 }
 
+@extend_schema_view(
+    list=extend_schema(
+        summary="Listar Categorias",
+        description="Retorna uma lista de todas as categorias disponíveis no sistema."
+    ),    
+    create=extend_schema(
+        summary="Criar nova Categoria",
+        description="Cadastra uma nova categoria no banco de dados."
+    ),
+    retrieve=extend_schema(
+        summary="Detalhar Categoria",
+        description="Retorna os dados de uma categoria específica pelo ID."
+    ),
+    update=extend_schema(summary="Atualizar Categoria"),
+    partial_update=extend_schema(summary="Atualizar Categoria parcialmente"),
+    destroy=extend_schema(
+        summary="Excluir Categoria",
+        description="Remove uma categoria definitivamente. Não pode remover se houver produtos vinculados."
+    )
+)
 class CategoryViewSet(viewsets.ModelViewSet):
-    """Fornece CRUD para categorias."""
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('id')
     serializer_class = CategorySerializer
 
 
@@ -30,10 +49,23 @@ class CategoryViewSet(viewsets.ModelViewSet):
         summary="Cria um novo produto",
         description="Endpoint para criar produtos com upload de imagem.",
         request=PRODUCT_UPLOAD_SCHEMA
+    ),
+    list=extend_schema(
+        summary="Listar Produtos",
+        description="Retorna uma lista de todos os produtos disponíveis no sistema."
+    ),    
+    retrieve=extend_schema(
+        summary="Detalhar Produtos",
+        description="Retorna os dados de um produto específico pelo ID."
+    ),
+    update=extend_schema(summary="Atualizar produto"),
+    partial_update=extend_schema(summary="Atualizar produto parcialmente"),
+    destroy=extend_schema(
+        summary="Excluir produto",
+        description="Remove um produto definitivamente. "
     )
 )
 class ProductViewSet(viewsets.ModelViewSet):
-    """Fornece CRUD para produtos."""
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by('id')
     serializer_class = ProductSerializer
     parser_classes = (MultiPartParser, FormParser)
