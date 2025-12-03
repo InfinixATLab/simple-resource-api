@@ -15,7 +15,7 @@ A aplicação está hospedada e rodando no **Render**.
 
 > **Nota:** Como o deploy utiliza o plano gratuito, a primeira requisição pode levar cerca de 50 segundos para "acordar" o servidor. Agradeço a paciência.
 
------
+---
 
 ## 🛠 Seção 1: Como Rodar Localmente
 
