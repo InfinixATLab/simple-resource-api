@@ -21,7 +21,7 @@ PRODUCT_UPLOAD_SCHEMA = {
 
 @extend_schema_view(
     list=extend_schema(
-        summary="Listar Categorias",
+        summary="Listar categorias",
         description="Retorna uma lista de todas as categorias disponíveis no sistema."
     ),    
     create=extend_schema(
