@@ -1,0 +1,11 @@
+django
+djangorestframework
+psycopg2-binary
+pillow
+python-dotenv
+drf-spectacular
+
+# Deployment
+gunicorn
+whitenoise
+dj-database-url

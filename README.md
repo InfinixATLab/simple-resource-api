@@ -1,59 +1,117 @@
-* IMPORTANTE: Não inicie este desafio sem autorização. O desafio só poderá ser iniciado no dia e horário agendado via Google Meet. Entre em contato via email ou whatsapp:
-  - administrativo@infinixassessoria.com.br
-  - (21) 99515-2411
+# Desafio Backend - Catálogo de Produtos API
 
-# SIMPLE RESOURCE API
+## 🔗 Links do Projeto (Deploy)
 
-## Sobre
-**Stack**: Python + Django + DRF
-**Escopo**: Uma API para catálogos de produtos.
+A aplicação está hospedada e rodando no **Render**.
 
-## Requisitos Essenciais (Timebox 4h)
+  - 📘 **Documentação Interativa (Swagger UI):**
+    [https://simple-resource-api.onrender.com/api/docs/](https://simple-resource-api.onrender.com/api/docs/)
+    *(Utilize esta interface para testar todos os endpoints e realizar upload de imagens).*
 
-1. Modelos: Em api/models.py, defina:
-    - Category(name: CharField)
-    - Product(name: Charfield, description: TextField, price: DecimalField (2 decimal places), category: ForeignKey(Category, on_delete=models.PROTECT))
-2. Admin: Registre ambos os modelos *Category* e *Product* no api/admin.py para que sejam gerenciáveis via Django Admin.
-3. API (DRF):
-    - Defina *serializers* para *Category* e *Product*.
-    - O serializador de *Product* deve exibir o nome da categoria, não apenas seu ID.
-    - Use **ViewSets** para fornercer funcionalidade CRUD completa para *Category* e *Product*.
-    - Configure urls usando DefaultRouter do DRF para registrar os ViewSets.
-4. Testes: Escreva pelo menos 2 (dois) testes unitários usando APITestCase do DRF:
-    - Um teste para verificar a criação de um Produto.
-    - Um teste para verificar a listagem de Produtos.
+  - 🛡️ **Painel Administrativo:**
+    [https://simple-resource-api.onrender.com/admin/](https://simple-resource-api.onrender.com/admin/)
+    *user:admin senha:admin12345*
 
-#### Bônus (Desejáveis):
-    - Swagger (Documentação API: Configure e adicione as rotas ao urls.py principal.
-    - AWS S3 (Upload de Arquivos): Adicione um campo ImageField(upload_to='products/') ao modelo Product; Configue django-storages e boto3 e dê instruções sobre como configurar as credenciais da AWS para testar o upload.
-    - Hospedagem: Forneça um Dockerfile e docker-compose.yml que permitam rodar o projeto e seu banco de dados (PostgersSQL) com um único comando. Se preferir, faça deploy no Render.
 
-# Rubrica de Avaliação
+> **Nota:** Como o deploy utiliza o plano gratuito, a primeira requisição pode levar cerca de 50 segundos para "acordar" o servidor. Agradeço a paciência.
 
-| Dimensão Avaliada                        | Peso  | Pontuação (1-5) | Descrição da Avaliação (O que procurar)                                                                                                                                                                                                 |
-|------------------------------------------|-------|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **1. Funcionalidade (Requisitos Essenciais)** | 40%  | [1-5]           | **5 (Excelente):** Cumpriu 100% dos requisitos essenciais. A aplicação roda de primeira, sem bugs óbvios. Trata estados de loading/error.<br>**3 (Satisfatório):** Cumpriu a maioria (80%+) dos requisitos. Funcionalidade principal funciona, mas com bugs menores.<br>**1 (Inaceitável):** Não roda ou a funcionalidade principal está quebrada. O avaliador não consegue testar a solução. |
-| **2. Qualidade de Código e Estrutura**       | 25%  | [1-5]           | **5 (Excelente):** Código limpo, legível e idiomático. Segue princípios (ex: DRY). Estrutura de pastas lógica e escalável. Separação clara de responsabilidades.<br>**3 (Satisfatório):** Código funciona, mas com repetição ou "code smells". Estrutura de pastas aceitável, mas confusa.<br>**1 (Inaceitável):** "Código espaguete". Variáveis ruins. "Sopa de arquivos" na raiz. |
-| **3. Processo e Comunicação (Git & README)** | 25%  | [1-5]           | **5 (Excelente):** Commits atômicos, frequentes e bem descritos. PR bem escrito. README completo com setup e explicações de design.<br>**3 (Satisfatório):** Usa Git, mas commits grandes (ex: "implementa home e função de agendar tarefas e remove var desnecessária"). README mínimo com instruções básicas.<br>**1 (Inaceitável):** Um único commit ("final"). Nenhum README ou instruções. Demonstra falta de profissionalismo e comunicação. |
-| **4. Bônus e Resolução de Problemas**        | 10%  | [1-5]           | **5 (Excelente):** Implementou requisitos bônus funcionando. README explica como utilizar.<br>**3 (Satisfatório):** Tentou implementar bônus, mas não funcionou. README explica falha e plano.<br>**1 (Inaceitável):** Ignorou bônus ou implementou com falhas e sem explicação no README. |
+-----
 
-## Instruções sobre "README-CANDIDATO" (Timebox 30min):
-Preencha este arquivo com informações claras e concisas, separadas pelas seguintes seções:
+## 🛠 Seção 1: Como Rodar Localmente
 
-#### Seção 1: Instruções para rodar
-- Quais variáveis de ambiente são necessárias?
-- Como instalar dependências?
-- Como rodar o projeto?
+Como já falado, o projeto está em deploy, mas se quiser executar localmente: 
+O projeto segue estritamente a abordagem **"Docker First"**. Não é necessário configurar ambiente virtual, instalar Python ou PostgreSQL na sua máquina. O ambiente é 100% isolado e reprodutível.
 
-#### Seção 2: Decisões de design
-- Qual foi a maior dificuldade que você encontrou e como superou?
-- O que você não teve tempo de fazer (dentro do timebox) e como você faria se tivesse mais tempo?
+### Pré-requisitos
 
-#### Seção 3: Link para Deploy (Bônus)
-- Cole aqui o link do projeto hospedado ou instrua como rodar via Docker.
+  - **Docker** e **Docker Compose** instalados.
+    > *Caso não tenha, consulte o guia oficial: [Get Docker](https://docs.docker.com/get-docker/)*
 
-#### Seção final: Recomendações
-- Escreva aqui dicas, melhorias e recomendações sobre este desafio.
+### Passo a Passo
 
-## Considerações finais:
-Este desafio não foi pensado para encontrar quem o finaliza 100% ou quem o termina mais rápido. Estamos buscando um desenvolvedor sério, que saiba como desenvolver soluções mesmo que para apenas 50% do projeto. Não queremos nenhum dev que dependa 100% de IA ou de terceiros, mas sim aquele que sabe priorizar, desenvolver e pesquisar.
+1.  **Subir a infraestrutura:**
+    Na raiz do projeto, execute:
+
+    ```bash
+    sudo docker-compose up -d --build
+    ```
+
+2.  **Aplicar Migrações e Setup Inicial:**
+    Execute os comandos dentro do container para criar as tabelas no banco:
+
+    ```bash
+    sudo docker-compose exec web python manage.py makemigrations
+    sudo docker-compose exec web python manage.py migrate
+    ```
+
+3.  **Criar Superusuário (Admin):**
+
+    ```bash
+    sudo docker-compose exec web python manage.py createsuperuser
+    ```
+
+4.  **Acessar:**
+
+      - API Docs: `http://127.0.0.1:8000/api/docs/`
+      - Admin: `http://127.0.0.1:8000/admin/`
+
+-----
+
+## 🧠 Seção 2: Decisões de Design e Arquitetura
+
+### 1\. Infraestrutura e Dockerização
+
+Adotei uma arquitetura de microsserviços via `docker-compose`, isolando a aplicação (`web`) e o banco de dados (`db`).
+
+  - **Benefício:** Elimina o clássico problema de "na minha máquina funciona". 
+
+### 2\. Django Rest Framework & Otimizações
+
+  - **ViewSets & Routers:** Utilizei `ModelViewSet` para garantir a padronização das rotas RESTful.
+  - **Paginação Global:** Configurei `PageNumberPagination` para evitar sobrecarga no banco de dados e na rede ao listar grandes volumes de dados.
+  - **Serializer Híbrido:** `ProductSerializer` exibe o nome da categoria na leitura, facilitando o consumo pelo Frontend, mas mantém a performance na escrita aceitando apenas o ID.
+
+### 3\. Documentação Avançada (Swagger)
+
+A documentação foi gerada com `drf-spectacular` e **customizada manualmente**.
+
+  - **Problema Resolvido:** O Swagger padrão não renderiza corretamente o botão de upload de arquivos.
+  - **Solução:** Forcei o parser `MultiPartParser` na View e estendi o schema (`@extend_schema`) definindo o campo de imagem como `binary`. Isso permite testar o upload visualmente direto na documentação.
+
+### 4\. Estratégia de Armazenamento (Storage)
+
+Optei por configurar o `MEDIA_ROOT` para armazenamento local em vez de S3 neste momento.
+
+  - **Justificativa:** Priorizei a facilidade de avaliação. Configurar S3 exigiria expor chaves AWS ou obrigar o avaliador a configurar credenciais.
+  - **Visão de Futuro:** O código está pronto para receber `django-storages` e `boto3` para migrar para S3 ou MinIO com poucas linhas de configuração.
+
+-----
+
+## ✅ Seção 3: Qualidade de Código e Testes
+
+A aplicação conta com uma suíte de testes automatizados.
+
+Para rodar os testes:
+
+```bash
+sudo docker-compose exec web python manage.py test api -v 2
+```
+
+**Cenários Cobertos:**
+
+  - **POST (Upload):** Validação completa de envio `multipart/form-data` com geração de imagem em memória.
+  - **GET (Listagem):** Verificação da estrutura JSON, paginação e presença dos campos customizados (`category_name`).
+  - **PATCH/PUT:** Garantia de atualização parcial de dados.
+  - **DELETE:** Verificação de integridade e limpeza do banco (`204 No Content`).
+
+---
+
+## Seção 4: Recomendações
+
+Se houvesse mais tempo, estas seriam as próximas implementações:
+
+1.  **Segurança:** Implementar autenticação via **JWT**. Atualmente o Admin exige login, mas a API está aberta para facilitar os testes manuais conforme o escopo. A melhoria seria proteger as rotas de escrita, mantendo apenas o GET público.
+2.  **Filtros Avançados:** Adicionar filtros mais complexos (ex: filtrar produtos por faixa de preço).
+3. **CI/CD:** Configuraria um workflow de Integração Contínua
+   - **Testes Automatizados:** Execução automática da suíte de testes a cada push.
+   - **Build Verification:** Teste de build da imagem Docker para garantir que novas dependências não quebrem o container.
