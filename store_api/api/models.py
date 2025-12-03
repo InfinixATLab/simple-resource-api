@@ -11,7 +11,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField()
     description = models.TextField()
-    price = models.DecimalField(decimal_places=2)
+    price = models.DecimalField(max_digits=10 ,decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
 
     def __str__(self):
