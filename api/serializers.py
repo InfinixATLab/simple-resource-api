@@ -1,14 +1,12 @@
 from rest_framework import serializers
-from .models import Category, Product
+from .models import category, Product
 
 #Defina serializers para Category e Product.
 #O serializador de Product deve exibir o nome da categoria, não apenas seu ID.
-#Use ViewSets para fornercer funcionalidade CRUD completa para Category e Product.
-#Configure urls usando DefaultRouter do DRF para registrar os ViewSets.
 
-class CategorySerializer(serializers.ModelSerializers):
+class categorySerializer(serializers.ModelSerializers):
     class Meta:
-        model = Category
+        model = category
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
