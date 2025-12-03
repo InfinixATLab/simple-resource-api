@@ -2,17 +2,22 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from api.views import CategoryViewSet, ProductViewSet
+# --- Importações Novas do Swagger ---
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
-# Criação do Roteador (Gerencia as URLs automaticamente)
 router = DefaultRouter()
-
-# O 'basename' é o apelido que o teste usa para encontrar a rota.
-# Se basename='product', o Django cria internamente o nome 'product-list'.
 router.register(r'categories', CategoryViewSet, basename='category')
 router.register(r'products', ProductViewSet, basename='product')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Incluimos as rotas do roteador aqui com o prefixo 'api/'
     path('api/', include(router.urls)),
+
+    # --- Rotas do Swagger (Documentação) ---
+    # Gera o arquivo de esquema (o mapa da API)
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # A interface bonita (Swagger UI)
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    # Interface alternativa (Redoc)
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
