@@ -9,9 +9,11 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 import sys
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,11 +80,19 @@ WSGI_APPLICATION = 'store_api.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+     'default': {
+         'ENGINE': 'django.db.backends.{}'.format(
+             os.getenv('DATABASE_ENGINE')
+         ),
+         'NAME': os.getenv('DATABASE_NAME'),
+         'USER': os.getenv('DATABASE_USERNAME'),
+         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+         'HOST': os.getenv('DATABASE_HOST'),
+         'PORT': int(os.getenv('DATABASE_PORT') or 5432)
+     }
+ }
+
+
 
 
 # Password validation
