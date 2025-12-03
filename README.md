@@ -1,59 +1,45 @@
-* IMPORTANTE: Não inicie este desafio sem autorização. O desafio só poderá ser iniciado no dia e horário agendado via Google Meet. Entre em contato via email ou whatsapp:
-  - administrativo@infinixassessoria.com.br
-  - (21) 99515-2411
+README-CANDIDATO: E-Commerce API (Django REST Framework)
+Este documento detalha o desenvolvimento da API de E-Commerce (Produtos e Categorias) em Django REST Framework, focando nas decisões de engenharia, instruções de uso e pontos de melhoria, conforme as instruções do desafio.
 
-# SIMPLE RESOURCE API
+Seção 1: Instruções para Rodar
+O projeto usa Python 3.8+ e SQLite. Não são necessárias variáveis de ambiente específicas para rodar localmente.
 
-## Sobre
-**Stack**: Python + Django + DRF
-**Escopo**: Uma API para catálogos de produtos.
+Instalação de Dependências
+Primeiro, clone o repositório e crie/ative um ambiente virtual:
 
-## Requisitos Essenciais (Timebox 4h)
+Bash
 
-1. Modelos: Em api/models.py, defina:
-    - Category(name: CharField)
-    - Product(name: Charfield, description: TextField, price: DecimalField (2 decimal places), category: ForeignKey(Category, on_delete=models.PROTECT))
-2. Admin: Registre ambos os modelos *Category* e *Product* no api/admin.py para que sejam gerenciáveis via Django Admin.
-3. API (DRF):
-    - Defina *serializers* para *Category* e *Product*.
-    - O serializador de *Product* deve exibir o nome da categoria, não apenas seu ID.
-    - Use **ViewSets** para fornercer funcionalidade CRUD completa para *Category* e *Product*.
-    - Configure urls usando DefaultRouter do DRF para registrar os ViewSets.
-4. Testes: Escreva pelo menos 2 (dois) testes unitários usando APITestCase do DRF:
-    - Um teste para verificar a criação de um Produto.
-    - Um teste para verificar a listagem de Produtos.
+# Exemplo
+# git clone URL_DO_REPO
+# cd nome_do_projeto
+python -m venv venv
+source venv/bin/activate 
+Instale o Django e o Django REST Framework:
 
-#### Bônus (Desejáveis):
-    - Swagger (Documentação API: Configure e adicione as rotas ao urls.py principal.
-    - AWS S3 (Upload de Arquivos): Adicione um campo ImageField(upload_to='products/') ao modelo Product; Configue django-storages e boto3 e dê instruções sobre como configurar as credenciais da AWS para testar o upload.
-    - Hospedagem: Forneça um Dockerfile e docker-compose.yml que permitam rodar o projeto e seu banco de dados (PostgersSQL) com um único comando. Se preferir, faça deploy no Render.
+Bash
 
-# Rubrica de Avaliação
+pip install django djangorestframework
+Como Rodar o Projeto
+Aplicação de Migrações:
 
-| Dimensão Avaliada                        | Peso  | Pontuação (1-5) | Descrição da Avaliação (O que procurar)                                                                                                                                                                                                 |
-|------------------------------------------|-------|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **1. Funcionalidade (Requisitos Essenciais)** | 40%  | [1-5]           | **5 (Excelente):** Cumpriu 100% dos requisitos essenciais. A aplicação roda de primeira, sem bugs óbvios. Trata estados de loading/error.<br>**3 (Satisfatório):** Cumpriu a maioria (80%+) dos requisitos. Funcionalidade principal funciona, mas com bugs menores.<br>**1 (Inaceitável):** Não roda ou a funcionalidade principal está quebrada. O avaliador não consegue testar a solução. |
-| **2. Qualidade de Código e Estrutura**       | 25%  | [1-5]           | **5 (Excelente):** Código limpo, legível e idiomático. Segue princípios (ex: DRY). Estrutura de pastas lógica e escalável. Separação clara de responsabilidades.<br>**3 (Satisfatório):** Código funciona, mas com repetição ou "code smells". Estrutura de pastas aceitável, mas confusa.<br>**1 (Inaceitável):** "Código espaguete". Variáveis ruins. "Sopa de arquivos" na raiz. |
-| **3. Processo e Comunicação (Git & README)** | 25%  | [1-5]           | **5 (Excelente):** Commits atômicos, frequentes e bem descritos. PR bem escrito. README completo com setup e explicações de design.<br>**3 (Satisfatório):** Usa Git, mas commits grandes (ex: "implementa home e função de agendar tarefas e remove var desnecessária"). README mínimo com instruções básicas.<br>**1 (Inaceitável):** Um único commit ("final"). Nenhum README ou instruções. Demonstra falta de profissionalismo e comunicação. |
-| **4. Bônus e Resolução de Problemas**        | 10%  | [1-5]           | **5 (Excelente):** Implementou requisitos bônus funcionando. README explica como utilizar.<br>**3 (Satisfatório):** Tentou implementar bônus, mas não funcionou. README explica falha e plano.<br>**1 (Inaceitável):** Ignorou bônus ou implementou com falhas e sem explicação no README. |
+Bash
 
-## Instruções sobre "README-CANDIDATO" (Timebox 30min):
-Preencha este arquivo com informações claras e concisas, separadas pelas seguintes seções:
+python manage.py migrate
+Inicialização do Servidor:
 
-#### Seção 1: Instruções para rodar
-- Quais variáveis de ambiente são necessárias?
-- Como instalar dependências?
-- Como rodar o projeto?
+Bash
 
-#### Seção 2: Decisões de design
-- Qual foi a maior dificuldade que você encontrou e como superou?
-- O que você não teve tempo de fazer (dentro do timebox) e como você faria se tivesse mais tempo?
+python manage.py runserver
+A API estará acessível em: http://127.0.0.1:8000/api/
 
-#### Seção 3: Link para Deploy (Bônus)
-- Cole aqui o link do projeto hospedado ou instrua como rodar via Docker.
+Seção 2: Decisões de Design
+Qual foi a maior dificuldade que você encontrou e como superou?
+A principal dificuldade foi ao me deparar com algumas funções as quais não tinha familiaridade.
+Para superar esse desafio fiz uso da documentação do django e python, sinto que fiz um bom trabalho levando em conta as dificuldades.
 
-#### Seção final: Recomendações
-- Escreva aqui dicas, melhorias e recomendações sobre este desafio.
+O que você não teve tempo de fazer (dentro do timebox) e como você faria se tivesse mais tempo?
+O recurso que não foi implementado é a Autenticação e Permissões (Segurança) e as funcionalidades bônus.
 
-## Considerações finais:
-Este desafio não foi pensado para encontrar quem o finaliza 100% ou quem o termina mais rápido. Estamos buscando um desenvolvedor sério, que saiba como desenvolver soluções mesmo que para apenas 50% do projeto. Não queremos nenhum dev que dependa 100% de IA ou de terceiros, mas sim aquele que sabe priorizar, desenvolver e pesquisar.
+Como Faria: Implementaria Django Simple JWT para gerenciar a autenticação via tokens. Em seguida, definiria classes de permissão no views.py (ex: permission_classes = [IsAdminUser]) para garantir que apenas usuários autenticados e administradores possam realizar operações de modificação (POST, PUT, DELETE).
+
+
