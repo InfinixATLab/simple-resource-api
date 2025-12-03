@@ -23,7 +23,6 @@ Execute o comando:
 
 docker-compose up --build
 
-
 Acesse o projeto em http://localhost:8000.
 
 Dicas, melhorias e recomendações:
