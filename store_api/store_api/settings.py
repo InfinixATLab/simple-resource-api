@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-_a^(q_j4_=_2+6kgwpeu((%&e8ew2*e83nw)tg6rt8#6a#0e8o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # Alterado para aceitar todos em desenvolvimento
 
 
 # Application definition
@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api',
     'drf_spectacular',
+    'storages',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',  # ← ADICIONADO
             ],
         },
     },
@@ -127,18 +129,60 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+# DRF Configuration
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
 }
 
+# Swagger/DRF Spectacular
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Simple Resource API',
-    'DESCRIPTION': 'API para gerenciamento de categorias e produtos',
+    'DESCRIPTION': 'API RESTful para gerenciamento de categorias e produtos',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_SETTINGS': {
+        'deepLinking': True,
+        'persistAuthorization': True,
+        'displayOperationId': True,
+    },
     'COMPONENT_SPLIT_REQUEST': True,
     'SCHEMA_PATH_PREFIX': '/api/',
+    'TAGS': [
+        {'name': 'categories', 'description': 'Operações com categorias'},
+        {'name': 'products', 'description': 'Operações com produtos'},
+    ],
 }
+
+
+# AWS S3 (BÔNUS)
+
+
+USE_S3 = os.getenv('USE_S3', 'False').lower() == 'true'
+
+if USE_S3:
+    # AWS Credentials
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME', 'us-east-1')
+    
+    # S3 Bucket Configuration
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',  
+    }
+    AWS_LOCATION = 'media'
+    AWS_DEFAULT_ACL = 'public-read'  
+    AWS_QUERYSTRING_AUTH = False  
+
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+    
+    print("✅ AWS S3 storage configurado")
+else:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    print("⚠️  Usando armazenamento local para mídia")
