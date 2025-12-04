@@ -19,13 +19,13 @@ SECRET_KEY=sua-chave-secreta-aqui
 ALLOWED_HOSTS=localhost,127.0.0.1
 ```
 
-Em produção, é fundamental definir uma `SECRET_KEY` segura e usar `DEBUG=False`, além de ajustar `ALLOWED_HOSTS` para o domínio correto.[1][2]
+Em produção, é fundamental definir uma `SECRET_KEY` segura e usar `DEBUG=False`, além de ajustar `ALLOWED_HOSTS` para o domínio correto.
 
 ### Instalação de dependências
 
 #### Opção A: Com Docker (recomendado)
 
-Todas as dependências já estão descritas no `Dockerfile` e orquestradas via `docker-compose`.[2][1]
+Todas as dependências já estão descritas no `Dockerfile` e orquestradas via `docker-compose`.
 
 ```bash
 # Build dos containers
@@ -93,22 +93,22 @@ python manage.py runserver
 
 ### Dificuldades e soluções
 
-A principal dificuldade foi implementar o bônus de upload de imagens para AWS S3 dentro do timebox de 4 horas.[2]
-O campo `ImageField` foi adicionado ao modelo `Product`, mas a configuração completa com S3 exigiu ajustes adicionais de credenciais, permissões e variáveis de ambiente além do escopo de tempo.[2]
+A principal dificuldade foi implementar o bônus de upload de imagens para AWS S3 dentro do timebox de 4 horas.
+O campo `ImageField` foi adicionado ao modelo `Product`, mas a configuração completa com S3 exigiu ajustes adicionais de credenciais, permissões e variáveis de ambiente além do escopo de tempo.
 
 Diante disso, a decisão foi:
 
 - Garantir uma implementação funcional localmente (armazenamento de mídia no filesystem).
-- Manter a estrutura preparada para, em produção, apenas configurar as credenciais AWS e ajustar o backend de storage, seguindo boas práticas de separação entre código e configuração.[2]
+- Manter a estrutura preparada para, em produção, apenas configurar as credenciais AWS e ajustar o backend de storage, seguindo boas práticas de separação entre código e configuração.
 
 ### O que faria com mais tempo
 
 Com mais tempo, seriam priorizadas as seguintes melhorias na API:
 
-- Paginação otimizada (por exemplo, cursor-based pagination) para grandes volumes de dados.[3]
-- Filtros avançados com `django-filter` (categoria, faixa de preço, nome, disponibilidade etc.).[3]
-- Cache com Redis para endpoints mais acessados, reduzindo carga no banco.[2]
-- Rate limiting para proteção contra abuso e melhoria de segurança/robustez da API.[2]
+- Paginação otimizada (por exemplo, cursor-based pagination) para grandes volumes de dados.
+- Filtros avançados com `django-filter` (categoria, faixa de preço, nome, disponibilidade etc.).
+- Cache com Redis para endpoints mais acessados, reduzindo carga no banco.
+- Rate limiting para proteção contra abuso e melhoria de segurança/robustez da API.
 
 ***
 
@@ -116,7 +116,7 @@ Com mais tempo, seriam priorizadas as seguintes melhorias na API:
 
 ### Repositório
 
-- Código-fonte: https://github.com/coder-marllon/simple-resource-api.git[4]
+- Código-fonte: https://github.com/coder-marllon/simple-resource-api.git
 
 ### Método 1: Docker Compose
 
@@ -160,9 +160,9 @@ docker exec -it <container_id> python manage.py migrate
 
 Algumas melhorias planejadas para evoluir o desafio:
 
-- Adicionar paginação às listagens da API, evitando respostas muito grandes.[3]
-- Implementar filtros por categoria, faixa de preço e nome, facilitando buscas mais específicas.[3]
-- Incluir autenticação e permissões para diferenciar operações públicas e restritas.[4]
-- Adicionar testes automatizados (unitários e de integração) para garantir a qualidade da API.[4]
+- Adicionar paginação às listagens da API, evitando respostas muito grandes.
+- Implementar filtros por categoria, faixa de preço e nome, facilitando buscas mais específicas.
+- Incluir autenticação e permissões para diferenciar operações públicas e restritas.
+- Adicionar testes automatizados (unitários e de integração) para garantir a qualidade da API.
 
 O desafio é bem estruturado e permite demonstrar conhecimentos em Django, DRF, Docker e boas práticas de APIs REST, sendo uma ótima base para evolução do projeto.
