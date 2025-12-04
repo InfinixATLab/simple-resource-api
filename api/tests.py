@@ -15,7 +15,6 @@ class ProductTest(APITestCase):
     }
     
   def test_create_product(self):
-   """teste para verificar a criação de um produto"""
    url = 'api/products/'
    response = self.client.post(url, self.product_data, format = 'json')
    self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -23,7 +22,6 @@ class ProductTest(APITestCase):
    self.assertEqual(Product.objects.get().name, 'teclado gamer')
    
   def test_list_products(self):
-    """Teste para verificar a listagem de Produtos"""
     Product.objects.create(name="Teclado", description="Mecânico", price="200.00", category=self.category)
     url = '/api/products/'
     response = self.client.get(url, format='json')
